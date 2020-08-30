@@ -6,7 +6,6 @@ Ant Design of React - Editable Tree Table<br />可编辑的树形表格<br />
 
 <a name="x4Byo"></a>
 ## install
-recommend using yarn<br />推荐使用 yarn
 ```bash
 yarn
 ```
