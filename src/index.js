@@ -1,10 +1,9 @@
+import 'antd/dist/antd.css';
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import EditableTreeTable from './EditableTreeTable';
-import 'antd/dist/antd.css';
-import './index.css';
-import inputParam from './mock/inputParam';
 import { v4 as uuidv4 } from 'uuid';
+import EditableTreeTable from './EditableTreeTable';
+import './index.css';
 
 class App extends Component {
   constructor() {
@@ -15,11 +14,15 @@ class App extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        dataSource: inputParam
+    fetch('//localhost:8090/list')
+      .then((res) => {
+        return res.json();
+      })
+      .then((resJson) => {
+        this.setState({
+          dataSource: resJson
+        });
       });
-    }, 500);
   }
 
   addChildParam(key) {
