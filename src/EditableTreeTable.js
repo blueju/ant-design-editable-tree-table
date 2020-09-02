@@ -1,5 +1,5 @@
-import React from 'react';
 import { Checkbox, Form, Popconfirm, Table } from 'antd';
+import React from 'react';
 import EditableCell from './EditableCell';
 
 export const EditableContext = React.createContext();
@@ -9,6 +9,7 @@ class EditableTable extends React.Component {
     super(props);
     this.state = {
       data: [],
+      // 正在编辑的行的key
       editingKey: ''
     };
     this.columns = [
@@ -70,7 +71,7 @@ class EditableTable extends React.Component {
               &emsp;
               <Popconfirm
                 title="确认删除?"
-                onConfirm={() => this.remove(record.key)}
+                onConfirm={() => this.deleteParam(record.key)}
                 okText="是"
                 cancelText="否"
               >
@@ -83,12 +84,15 @@ class EditableTable extends React.Component {
     ];
   }
 
+  // 通过对比当前行key与正在编辑行key是否相等，在遍历渲染时判断当前行是否需要禁用
   isEditing = (record) => record.key === this.state.editingKey;
 
+  // 取消（编辑）
   cancel = () => {
     this.setState({ editingKey: '' });
   };
 
+  // 保存（正在编辑的数据）
   save(form, key) {
     form.validateFields((error, row) => {
       if (error) {
@@ -99,7 +103,7 @@ class EditableTable extends React.Component {
         for (let i = 0; i < data.length; i++) {
           if (data[i].key === key) {
             data[i] = { ...data[i], ...row };
-            return;
+            break;
           } else if (data[i].hasOwnProperty('children')) {
             updateTreeTable(data[i].children, key, row);
           }
@@ -107,20 +111,21 @@ class EditableTable extends React.Component {
       };
       updateTreeTable(newData, key, row);
       this.setState({ data: newData, editingKey: '' });
-      this.props.save(newData);
+      this.props.onSave(newData);
     });
   }
 
   add(key) {
-    this.props.add(key);
+    this.props.onAdd(key);
   }
 
   edit(key) {
     this.setState({ editingKey: key });
   }
 
-  remove(key) {
-    this.props.remove(key);
+  // 删除（参数）
+  deleteParam(key) {
+    this.props.onDelete(key);
   }
 
   render() {

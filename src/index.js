@@ -6,8 +6,8 @@ import EditableTreeTable from './EditableTreeTable';
 import './index.css';
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       dataSource: []
     };
@@ -25,6 +25,7 @@ class App extends Component {
       });
   }
 
+  // 新增子级参数
   addChildParam(key) {
     const unifyHandle = (key, source) => {
       function Param() {
@@ -55,13 +56,15 @@ class App extends Component {
     });
   }
 
-  save = (newDataSource) => {
+  // 保存（参数）
+  saveParam = (newDataSource) => {
     this.setState({
       dataSource: newDataSource
     });
   };
 
-  remove(key) {
+  // 删除（参数）
+  deleteParam(key) {
     const unifyHandle = (key, source) => {
       for (let i = 0; i < source.length; i++) {
         const item = source[i];
@@ -85,9 +88,9 @@ class App extends Component {
       <div>
         <EditableTreeTable
           dataSource={this.state.dataSource}
-          add={(key) => this.addChildParam(key)}
-          save={(newDataSource) => this.save(newDataSource)}
-          remove={(key) => this.remove(key)}
+          onAdd={(key) => this.addChildParam(key)}
+          onSave={(newDataSource) => this.saveParam(newDataSource)}
+          onDelete={(key) => this.deleteParam(key)}
         />
       </div>
     );
