@@ -39,3 +39,15 @@ npm run mock
 ## GitHub
 
 详见：<br />[https://github.com/blueju/ant-design-editable-tree-table](https://github.com/blueju/ant-design-editable-tree-table)
+
+## 更新
+
+> 2020 年 9 月 2 日
+
+看到有人给了我 star，怎么说也要对得起人家，时不时更新一下仓库。
+
+大致按 ant design 的样子，稍稍规范了一下封装组件的方法名称，`add` → `onAdd`，`save` → `onSave`，`remove` → `onDelete`。
+
+然后改了一下 mock 的方式，哈哈看起来顺眼多了。
+
+然后就是加了一些注释。
