@@ -1,5 +1,5 @@
 import React from 'react';
-import { Checkbox, Form, Popconfirm, Table } from 'antd';
+import { Checkbox, Popconfirm, Table, Form } from 'antd';
 
 import EditableCell from './EditableCell';
 
@@ -69,7 +69,7 @@ class EditableTable extends React.Component {
             <a onClick={() => this.cancel(record.key)}>取消</a>
           </>
         ) : (
-          <div>
+          <>
             <a
               disabled={editingKey !== ''}
               onClick={() => this.add(record.key)}
@@ -92,7 +92,7 @@ class EditableTable extends React.Component {
             >
               <a disabled={editingKey !== ''}>删除</a>
             </Popconfirm>
-          </div>
+          </>
         );
       },
     },
@@ -133,7 +133,12 @@ class EditableTable extends React.Component {
     this.props.onAdd(key);
   }
 
+  /**
+   * 编辑
+   * @param {*} key
+   */
   edit(key) {
+    console.log(key);
     this.setState({ editingKey: key });
   }
 
@@ -167,30 +172,32 @@ class EditableTable extends React.Component {
 
     return (
       <EditableTableContext.Provider value={this.props.form}>
-        <Table
-          // 表格行 key
-          rowKey={(record, index) => {
-            if (this.props.rowKey) {
-              return this.props.rowKey;
-            } else {
-              return index;
-            }
-          }}
-          // 覆盖默认的 table tbody cell 元素
-          components={{
-            body: {
-              cell: EditableCell,
-            },
-          }}
-          // 边框
-          bordered
-          // 数据
-          dataSource={this.props.dataSource}
-          // 列
-          columns={columns}
-          // 树形表格没必要分页
-          pagination={false}
-        />
+        <Form>
+          <Table
+            // 表格行 key
+            rowKey={(record, index) => {
+              if (this.props.rowKey) {
+                return this.props.rowKey;
+              } else {
+                return index;
+              }
+            }}
+            // 覆盖默认的 table tbody cell 元素
+            components={{
+              body: {
+                cell: EditableCell,
+              },
+            }}
+            // 边框
+            bordered
+            // 数据
+            dataSource={this.props.dataSource}
+            // 列
+            columns={columns}
+            // 树形表格没必要分页
+            pagination={false}
+          />
+        </Form>
       </EditableTableContext.Provider>
     );
   }

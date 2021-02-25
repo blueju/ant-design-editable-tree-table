@@ -7,13 +7,6 @@ import { EditableTableContext } from './EditableTreeTable';
  * 可编辑单元格
  */
 class EditableCell extends React.Component {
-  getInput = () => {
-    if (this.props.inputType === 'checkbox') {
-      return <Checkbox />;
-    }
-    return <Input />;
-  };
-
   /**
    * 渲染单元格
    */
@@ -22,26 +15,17 @@ class EditableCell extends React.Component {
       editing,
       dataIndex,
       title,
-      inputType,
       record,
       index,
       children,
       ...restProps
     } = this.props;
+    debugger;
     return (
       <td {...restProps}>
         {editing ? (
-          <Form.Item
-            initialValue={record[dataIndex]}
-            valuePropName={inputType === 'checkbox' ? 'checked' : 'value'}
-            rules={[
-              {
-                required: true,
-                message: `请输入 ${title}!`,
-              },
-            ]}
-          >
-            {this.getInput()}
+          <Form.Item initialValue={record[dataIndex]}>
+            <Input />
           </Form.Item>
         ) : (
           children

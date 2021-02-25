@@ -6,42 +6,6 @@ module.exports = [
     required: false,
     defaultValue: 'wxnhg',
     description: 'sgyj',
-    children: [
-      {
-        key: 'E93c1bEF-7155-4aD1-7b9B-6A5f5dFBC496',
-        name: 'cgkvyhtyhl',
-        type: 'string',
-        required: false,
-        defaultValue: 'ytrxreme',
-        description: 'yufoea',
-        children: [
-          {
-            key: '26CbE9dd-1C1e-dBD8-Bc36-2128c14D1d4F',
-            name: 'ymqrmpu',
-            type: 'string',
-            required: false,
-            defaultValue: 'xepsjoi',
-            description: 'ejtoyphp',
-          },
-          {
-            key: '26FecAe4-bffE-D39e-b2A0-A0cfB49a6d9C',
-            name: 'ytap',
-            type: 'string',
-            required: true,
-            defaultValue: 'lyhxi',
-            description: 'sqyllc',
-          },
-        ],
-      },
-      {
-        key: '6ebDfA3A-B6Eb-b2e6-f7E2-11EEdeFC07Cb',
-        name: 'hdyjpofsus',
-        type: 'string',
-        required: false,
-        defaultValue: 'rlkxdhh',
-        description: 'ykvttys',
-      },
-    ],
   },
   {
     key: 'Ce766f97-E5cc-5E66-1fB9-CBdef49dB2b0',
