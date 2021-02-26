@@ -17,22 +17,25 @@ class EditableTable extends React.Component {
     // 正在编辑的行的key
     editingKey: '',
   };
-  //  表格列属性
+  // 表格列属性
   columns = [
     {
       title: '名称',
       dataIndex: 'name',
+      width: '16.6%',
       editable: true,
     },
     {
       title: '类型',
       dataIndex: 'type',
       editable: true,
+      width: '16.6%',
     },
     {
       title: '必填',
       dataIndex: 'required',
       editable: true,
+      width: '16.6%',
       render: (text, record, index) => {
         return <Checkbox defaultChecked={record.required} disabled />;
       },
@@ -41,11 +44,13 @@ class EditableTable extends React.Component {
       title: '默认值',
       dataIndex: 'defaultValue',
       editable: true,
+      width: '16.6%',
     },
     {
       title: '描述',
       dataIndex: 'description',
       editable: true,
+      width: '16.6%',
     },
     {
       title: '操作',

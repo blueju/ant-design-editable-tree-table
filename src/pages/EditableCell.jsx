@@ -1,5 +1,5 @@
 import React from 'react';
-import { Checkbox, Form, Input } from 'antd';
+import { Form, Input } from 'antd';
 
 import { EditableTableContext } from './EditableTreeTable';
 
@@ -12,19 +12,34 @@ class EditableCell extends React.Component {
    */
   renderCell = () => {
     const {
+      /**
+       * 是否处于正在编辑的状态
+       */
       editing,
+      /**
+       * 列名
+       */
       dataIndex,
-      title,
+      /**
+       * 行数据
+       */
       record,
-      index,
       children,
       ...restProps
     } = this.props;
-    debugger;
+    /**
+     * 单元格初始值
+     * record[dataIndex] 这么写比较动态，即使列名换了也能取到值
+     */
+    const initialValue = record[dataIndex];
     return (
-      <td {...restProps}>
+      <td>
         {editing ? (
-          <Form.Item initialValue={record[dataIndex]}>
+          <Form.Item
+            name={dataIndex}
+            initialValue={initialValue}
+            style={{ marginBottom: 0 }}
+          >
             <Input />
           </Form.Item>
         ) : (
