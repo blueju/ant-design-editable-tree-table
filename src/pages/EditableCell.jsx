@@ -12,29 +12,23 @@ class EditableCell extends React.Component {
    */
   renderCell = () => {
     const {
-      /**
-       * 是否处于正在编辑的状态
-       */
+      // 是否处于正在编辑的状态
       editing,
-      /**
-       * 列名
-       */
+      // 列名
       dataIndex,
-      /**
-       * 行数据
-       */
+      // 行数据
       record,
+      // 子元素
       children,
-      ...restProps
     } = this.props;
-    /**
-     * 单元格初始值
-     * record[dataIndex] 这么写比较动态，即使列名换了也能取到值
-     */
-    const initialValue = record[dataIndex];
-    return (
-      <td>
-        {editing ? (
+    if (editing) {
+      /**
+       * 单元格初始值
+       * record[dataIndex] 这么写比较动态，即使列名换了也能取到值
+       */
+      const initialValue = record[dataIndex];
+      return (
+        <td>
           <Form.Item
             name={dataIndex}
             initialValue={initialValue}
@@ -42,11 +36,11 @@ class EditableCell extends React.Component {
           >
             <Input />
           </Form.Item>
-        ) : (
-          children
-        )}
-      </td>
-    );
+        </td>
+      );
+    } else {
+      return <td>{children}</td>;
+    }
   };
 
   render() {
