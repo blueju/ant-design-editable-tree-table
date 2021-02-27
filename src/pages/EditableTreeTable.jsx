@@ -36,7 +36,7 @@ class EditableTable extends React.Component {
       dataIndex: 'required',
       editable: true,
       width: '16.6%',
-      render: (text, record, index) => {
+      render: (text, record) => {
         return <Checkbox defaultChecked={record.required} disabled />;
       },
     },
@@ -56,7 +56,7 @@ class EditableTable extends React.Component {
       title: '操作',
       width: 250,
       dataIndex: 'operation',
-      render: (text, record, index) => {
+      render: (text, record) => {
         const { editingKey } = this.state;
         const editable = this.isEditing(record);
         return editable ? (
@@ -103,7 +103,12 @@ class EditableTable extends React.Component {
     },
   ];
 
-  // 通过对比当前行key与正在编辑行key是否相等，在遍历渲染时判断当前行是否需要禁用
+  /**
+   * 是否处于编辑状态
+   * 通过对比当前行key与正在编辑行key是否相等
+   * @param record 当前行数据
+   * @returns {boolean}
+   */
   isEditing = (record) => record.key === this.state.editingKey;
 
   // 取消（编辑）
