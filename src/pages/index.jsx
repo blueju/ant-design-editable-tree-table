@@ -15,21 +15,46 @@ export default class IndexPage extends React.Component {
     });
   }
 
+  /**
+   * 点击<添加>按钮后的回调
+   */
+  onAdd() {
+    console.log('点击添加按钮时的回调');
+  }
+
+  /**
+   * 点击<保存>按钮后的回调
+   * @param newDataSource 保存后的新表格数据
+   */
+  onSave(newDataSource) {
+    console.log(newDataSource);
+  }
+
+  /**
+   * 点击确认<删除>按钮后的回调
+   * @param key 所删除行的key
+   */
+  onDelete(key) {
+    console.log(key);
+  }
+
   render() {
     return (
-      <>
+      <div style={{ padding: 10 }}>
         <Row>
           <Col>
-            <Button type="primary">添加</Button>
+            <Button type="primary" style={{ marginBottom: 10 }}>
+              添加
+            </Button>
           </Col>
         </Row>
         <EditableTreeTable
           dataSource={this.state.dataSource}
-          onAdd={(key) => this.addChildParam(key)}
-          onSave={(newDataSource) => this.saveParam(newDataSource)}
-          onDelete={(key) => this.deleteParam(key)}
+          onAdd={this.onAdd}
+          onSave={this.onSave}
+          onDelete={this.onDelete}
         />
-      </>
+      </div>
     );
   }
 }

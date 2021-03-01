@@ -13,7 +13,6 @@ export const EditableTableContext = React.createContext();
  */
 class EditableTable extends React.Component {
   state = {
-    data: [],
     // 正在编辑的行的key
     editingKey: '',
   };
@@ -23,34 +22,36 @@ class EditableTable extends React.Component {
       title: '名称',
       dataIndex: 'name',
       width: '16.6%',
+      // 是否可编辑
+      // 自定义的属性，以下的 editable 都是
       editable: true,
     },
     {
       title: '类型',
       dataIndex: 'type',
-      editable: true,
       width: '16.6%',
+      editable: true,
     },
     {
       title: '必填',
       dataIndex: 'required',
-      editable: true,
       width: '16.6%',
       render: (text, record) => {
         return <Checkbox defaultChecked={record.required} disabled />;
       },
+      editable: true,
     },
     {
       title: '默认值',
       dataIndex: 'defaultValue',
-      editable: true,
       width: '16.6%',
+      editable: true,
     },
     {
       title: '描述',
       dataIndex: 'description',
-      editable: true,
       width: '16.6%',
+      editable: true,
     },
     {
       title: '操作',
@@ -58,6 +59,7 @@ class EditableTable extends React.Component {
       dataIndex: 'operation',
       render: (text, record) => {
         const { editingKey } = this.state;
+        // 是否处于编辑状态
         const editable = this.isEditing(record);
         return editable ? (
           <>
@@ -79,7 +81,7 @@ class EditableTable extends React.Component {
               disabled={editingKey !== ''}
               onClick={() => this.add(record.key)}
             >
-              新增子级参数
+              添加
             </a>
             &emsp;
             <a
@@ -91,7 +93,7 @@ class EditableTable extends React.Component {
             &emsp;
             <Popconfirm
               title="确认删除?"
-              onConfirm={() => this.deleteParam(record.key)}
+              onConfirm={() => this.deleteRow(record.key)}
               okText="是"
               cancelText="否"
             >
@@ -104,7 +106,7 @@ class EditableTable extends React.Component {
   ];
 
   /**
-   * 是否处于编辑状态
+   * 是否处于编辑状态。
    * 通过对比当前行key与正在编辑行key是否相等
    * @param record 当前行数据
    * @returns {boolean}
@@ -152,18 +154,15 @@ class EditableTable extends React.Component {
     this.setState({ editingKey: key });
   }
 
-  // 删除（参数）
-  deleteParam(key) {
+  /**
+   * 删除行
+   * @param key
+   */
+  deleteRow(key) {
     this.props.onDelete(key);
   }
 
   render() {
-    const components = {
-      body: {
-        cell: EditableCell,
-      },
-    };
-
     const columns = this.columns.map((col) => {
       if (!col.editable) {
         return col;
