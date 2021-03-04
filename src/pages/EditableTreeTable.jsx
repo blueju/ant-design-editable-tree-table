@@ -10,13 +10,15 @@ import EditableCell from './EditableCell';
 export const EditableTableContext = React.createContext({});
 
 /**
- * 可编辑表格
+ * 可编辑树形表格
  * @param dataSource  表格数据
  * @param onAdd       点击添加时的回调
  * @param onSave      点击保存时的回调
  * @param onDelete    点击删除时的回调
  */
 class EditableTreeTable extends React.Component {
+  formRef = React.createRef();
+
   state = {
     // 正在编辑的行的key
     editingKey: '',
@@ -69,11 +71,17 @@ class EditableTreeTable extends React.Component {
         return editable ? (
           <>
             <EditableTableContext.Consumer>
-              {(form) => (
-                <Button type="link" onClick={() => this.save(form, record.key)}>
-                  保存
-                </Button>
-              )}
+              {(form) => {
+                console.log(form);
+                return (
+                  <Button
+                    type="link"
+                    onClick={() => this.save(form, record.key)}
+                  >
+                    保存
+                  </Button>
+                );
+              }}
             </EditableTableContext.Consumer>
             <Divider type="vertical" />
             <Button type="link" onClick={() => this.cancel(record.key)}>
@@ -189,8 +197,9 @@ class EditableTreeTable extends React.Component {
     });
 
     return (
-      <EditableTableContext.Provider value={this.props.form}>
-        <Form>
+      // 将 formRef 传入上下文
+      <EditableTableContext.Provider value={this.formRef}>
+        <Form ref={this.formRef}>
           <Table
             // 表格行 key
             rowKey={(record, index) => {
