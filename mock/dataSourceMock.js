@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   {
     key: '2bBec932-E2cE-F7F4-2bfA-A4C6dd6C5B69',
     name: 'otr',
