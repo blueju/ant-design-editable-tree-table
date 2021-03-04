@@ -10,8 +10,12 @@ export const EditableTableContext = React.createContext();
 
 /**
  * 可编辑表格
+ * @param dataSource  表格数据
+ * @param onAdd       点击添加时的回调
+ * @param onSave      点击保存时的回调
+ * @param onDelete    点击删除时的回调
  */
-class EditableTable extends React.Component {
+class EditableTreeTable extends React.Component {
   state = {
     data: [],
     // 正在编辑的行的key
@@ -213,4 +217,4 @@ class EditableTable extends React.Component {
   }
 }
 
-export default EditableTable;
+export default EditableTreeTable;
