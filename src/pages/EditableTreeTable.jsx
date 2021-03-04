@@ -1,12 +1,13 @@
 import React from 'react';
-import { Checkbox, Popconfirm, Table, Form } from 'antd';
+import { Checkbox, Popconfirm, Table, Form, Button, Divider } from 'antd';
 
+import styles from './EditableTreeTable.less';
 import EditableCell from './EditableCell';
 
 /**
  * 可编辑表格的上下文
  */
-export const EditableTableContext = React.createContext();
+export const EditableTableContext = React.createContext({});
 
 /**
  * 可编辑表格
@@ -67,41 +68,45 @@ class EditableTreeTable extends React.Component {
           <>
             <EditableTableContext.Consumer>
               {(form) => (
-                <a
-                  onClick={() => this.save(form, record.key)}
-                  style={{ marginRight: 8 }}
-                >
+                <Button type="link" onClick={() => this.save(form, record.key)}>
                   保存
-                </a>
+                </Button>
               )}
             </EditableTableContext.Consumer>
-            <a onClick={() => this.cancel(record.key)}>取消</a>
+            <Divider type="vertical" />
+            <Button type="link" onClick={() => this.cancel(record.key)}>
+              取消
+            </Button>
           </>
         ) : (
-          <>
-            <a
+          <div className={styles.operationBtnGroup}>
+            <Button
+              type="link"
               disabled={editingKey !== ''}
               onClick={() => this.add(record.key)}
             >
-              新增子级参数
-            </a>
-            &emsp;
-            <a
+              添加
+            </Button>
+            <Divider type="vertical" />
+            <Button
+              type="link"
               disabled={editingKey !== ''}
               onClick={() => this.edit(record.key)}
             >
               编辑
-            </a>
-            &emsp;
+            </Button>
+            <Divider type="vertical" />
             <Popconfirm
               title="确认删除?"
               onConfirm={() => this.deleteParam(record.key)}
               okText="是"
               cancelText="否"
             >
-              <a disabled={editingKey !== ''}>删除</a>
+              <Button type="link" disabled={editingKey !== ''}>
+                删除
+              </Button>
             </Popconfirm>
-          </>
+          </div>
         );
       },
     },
@@ -162,12 +167,6 @@ class EditableTreeTable extends React.Component {
   }
 
   render() {
-    const components = {
-      body: {
-        cell: EditableCell,
-      },
-    };
-
     const columns = this.columns.map((col) => {
       if (!col.editable) {
         return col;
