@@ -71,12 +71,12 @@ class EditableTreeTable extends React.Component {
         return editable ? (
           <>
             <EditableTableContext.Consumer>
-              {(form) => {
+              {(formRef) => {
                 console.log(form);
                 return (
                   <Button
                     type="link"
-                    onClick={() => this.save(form, record.key)}
+                    onClick={() => this.save(formRef, record.key)}
                   >
                     保存
                   </Button>
@@ -132,12 +132,14 @@ class EditableTreeTable extends React.Component {
 
   // 取消（编辑）
   cancel = () => {
-    this.setState({ editingKey: '' });
+    this.setState({
+      editingKey: '',
+    });
   };
 
   // 保存（正在编辑的数据）
-  save(form, key) {
-    form.validateFields((error, row) => {
+  save(formRef, key) {
+    formRef.current.validateFields((error, row) => {
       if (error) {
         return;
       }
@@ -153,7 +155,10 @@ class EditableTreeTable extends React.Component {
         }
       };
       updateTreeTable(newData, key, row);
-      this.setState({ data: newData, editingKey: '' });
+      this.setState({
+        data: newData,
+        editingKey: '',
+      });
       this.props.onSave(newData);
     });
   }
